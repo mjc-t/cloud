@@ -1,0 +1,75 @@
+R1
+conf t
+!
+int lo0
+ip add 1.1.1.1 255.255.255.255
+!
+int s0/0
+no sh
+ip add 192.168.12.1 255.255.255.0
+!
+int f0/0
+no sh
+ip add 192.168.13.1 255.255.255.0
+!
+router os 1
+router-id 1.1.1.1
+net 1.1.1.1 0.0.0.0 a 0
+net 192.168.12.1 0.0.0.0 a 0
+net 192.168.13.1 0.0.0.0 a 0
+!
+---
+R2
+conf t
+!
+int lo0
+ip add 2.2.2.2 255.255.255.255
+!
+int s0/0
+no sh
+ip add 192.168.12.2 255.255.255.0
+!
+int s0/1
+no sh
+ip add 192.168.23.2 255.255.255.0
+!
+router os 1
+router-id 2.2.2.2
+net 2.2.2.2 0.0.0.0 a 0
+net 192.168.12.2 0.0.0.0 a 0
+!
+router ei 1
+no auto
+net 2.2.2.2 0.0.0.0
+net 192.168.23.2 0.0.0.0
+!
+---
+R3
+conf t
+!
+int lo0
+ip add 3.3.3.3 255.255.255.255
+!
+int s0/1
+no sh
+ip add 192.168.23.3 255.255.255.0
+!
+int f0/0
+no sh
+ip add 192.168.13.3 255.255.255.0
+!
+router ei 1
+no auto
+net 3.3.3.3 0.0.0.0
+net 192.168.23.3 0.0.0.0
+net 192.168.13.3 0.0.0.0
+!
+===
+È®ÀÎ
+!
+sh ip int br
+sh ip route
+sh ip proto
+!
+ping ...
+traceroute ...
