@@ -1,0 +1,30 @@
+R2
+acc 1 deny 10.10.0.0 0.0.255.255
+acc 1 per any
+!
+int s0/0
+ip access-g 1 in
+---
+R1
+p 3.3.3.3 (O)
+p 3.3.3.3 so lo10 (X)
+====
+R3
+ip access-l st L0
+deny ho 1.1.1.1
+per any
+int s0/1
+ip access-g L0 in
+---
+R1
+p 3.3.3.3 (O)
+p 3.3.3.3 so lo0 (X)
+====
+R1
+acce 1 per 192.168.23.0 0.0.0.255 = acce 1 per ho 192.168.23.3
+line vty 0 4
+access-class 1 in
+---
+R3: tel 192.168.12.1 (O)
+R2: tel 192.168.12.1 (X)
+
