@@ -1,0 +1,43 @@
+R1
+int s0/0
+en fram
+no fram inv
+no sh
+!
+int s0/0.12 m
+ip add 1.1.12.1 255.255.255.0
+fram map ip 1.1.12.2 102 br
+---
+R2
+int s0/0
+en fram
+no fram inv
+no sh
+!
+int s0/0.12 m
+ip add 1.1.12.2 255.255.255.0
+fram map ip 1.1.12.1 201 br
+---
+R5
+int s0/0
+en fram
+no fram inv
+no sh
+!
+int s0/0.56 m
+ip add 1.1.56.5 255.255.255.0
+fram map ip 1.1.156.6 506 br
+---
+R6
+int s0/0
+en fram
+no fram inv
+no sh
+!
+int s0/0.56 m
+ip add 1.1.56.6 255.255.255.0
+fram map ip 1.1.56.5 605 br
+!
+
+
+
