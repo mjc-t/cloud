@@ -1,0 +1,25 @@
+[NSSA ABR + ASBR]
+router ospf 1
+area X nssa {default-information-originate | no-summary} no-redistribution
+
+1) Interface 인증 = Neighbor 인증
+int ...
+ip ospf authentication message-digest
+ip ospf message-digest-key 1 md5 암호
+
+2) Area 인증
+router ospf 1
+area X authentication message-digest
+int ...
+ip ospf message-digest-key 1 md5 암호
+
+3) Virtual-Link 인증
+[Virtual-Link 인증]
+1) Area 0인 경우 Virtual-Link 인증
+router ospf 1
+area 0 authentication message-digest
+area X virtual-link 상대방라우터ID message-digest-key 1 md5 cisco
+2) Virtual-Link만 인증
+router ospf 1
+area X virtual-link 상대방라우터ID authentication message-digest
+area X virtual-link 상대방라우터ID message-digest-key 1 md5 cisco
