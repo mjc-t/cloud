@@ -1,0 +1,104 @@
+[IP Helper Address]
+라우터는 브로드캐스트 트래픽을 기본적으로 차단
+int ...
+ip helper-address 유니캐스트주소
+
+필요시: 기본 지원프로토콜 이외 추가 및 제거
+ip forward-protocol [udp] [포트번호]
+no ip forward-protocol [udp] [포트번호]
+
+[DHCP]
+[DHCP] = Bootp
+Server 설정
+ip dhcp excluded-address 제외주소(게이트웨이, DNS Server 등 각종 서버)
+
+ip dhcp pool 풀이름
+network 네트워크 서브넷마스크
+default-router 게이트웨이주소
+dns-server DNS서버주소
+domain-name 도메인이름
+netbios-name-server WINS주소
+netbios-node-type h-node
+lease {임대기간 | infinite}
+
+Client 설정(라우터의 경우)
+int ...
+ip address dhcp
+
+[분리된 네트워크에서의 DHCP Server 운영]
+[DHCP Server] - (Router) - [DHCP Client]
+
+1) 네트워크 별로 각각 DHCP Server 설치
+2) RFC 1542 지원 Router 운영
+3) DHCP Relay Agent 운영(IP Helper Address 등)
+
+시간 설정
+clock timezone KOR +9
+clock set 시:분:초 일 월 연도
+시간 확인
+show clock
+
+1) Broadcast Client Mode: 스위치 연결 구간
+NTP Server
+ntp server 외부주소
+ntp master 홉카운트
+
+int ...
+ntp broadcast
+
+Client
+int ...
+ntp broadcast client
+
+설정후 end, exit 등 인터페이스 모드에서 빠져나오도록
+
+2) Static Client Mode: 라우팅 연결 구간
+전제조건: 라우팅 설정
+Client
+ntp server 서버주소
+
+확인 명령어
+sh ntp status
+sh clock
+
+[NTP 인증]
+ntp authenticate
+ntp authentication-key 1 md5 cisco
+ntp trusted-key 1
+
+ntp server ... source lo0 key 1
+---
+ntp source lo0
+
+[SNMP]
+구성요소:  SNMP Manager, SNMP Agent
+snmp-server community 이름 권한(rw | ro)
+snmp-server enable trap 프로토콜
+snmp-server host 서버주소 traps ...
+
+[Syslog]
+logging on
+logging host 서버주소
+logging source-int lo0
+logging trap ?
+
+logging buffer 사이즈 레벨
+logging count
+
+확인
+sh logging
+
+[Core Dump]
+- 장비에 문제가 발생했을 경우 장비 스스로 FTP 등의 프로토콜을 사용하여 설정된 서버에 장애관련 로그를 자동으로 전달하는 기능
+- 라우터와 스위치에 DUMP 기능을 설정하면 장애시 스스로 Core‐Dump 파일을 생성하여 지정된 서버로 전달한다 .
+
+Core Dump 설정
+ip ftp username 사용자이름
+ip ftp password 암호
+
+exception core‐file 파일이름 (compress)
+exception protocol ftp
+exception dump 서버주소
+
+확인
+show exception
