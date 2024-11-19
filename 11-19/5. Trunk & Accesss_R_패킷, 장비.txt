@@ -1,0 +1,94 @@
+SW1
+!
+int ran f0/23 - 24
+sw tr en dot
+sw mo tr
+!
+vlan 10
+vlan 20
+vlan 30
+!
+int f0/1
+sw mo acc
+sw acc vl 10
+!
+int f0/2
+sw mo acc
+sw acc vl 20
+!
+int f0/3
+sw mo acc
+sw acc vl 30
+!
+---
+SW2
+!
+int ran f0/23 - 24
+sw tr en dot
+sw mo tr
+!
+vlan 10
+vlan 20
+vlan 30
+!
+int f0/4
+sw mo acc
+sw acc vl 10
+!
+int f0/5
+sw mo acc
+sw acc vl 20
+!
+int f0/6
+sw mo acc
+sw acc vl 30
+!
+---
+R1
+!
+int f0/0
+no sh
+ip add 192.168.10.1 255.255.255.0
+!
+---
+R2
+!
+int f0/0
+no sh
+ip add 192.168.20.2 255.255.255.0
+!
+---
+R3
+!
+int f0/0
+no sh
+ip add 192.168.30.3 255.255.255.0
+!
+---
+R4
+!
+int f0/1
+no sh
+ip add 192.168.10.4 255.255.255.0
+!
+---
+R5
+!
+int f0/1
+no sh
+ip add 192.168.20.5 255.255.255.0
+!
+---
+R6
+!
+int f0/1
+no sh
+ip add 192.168.30.6 255.255.255.0
+!
+---
+»Æ¿Œ
+!
+sh vlan br
+sh interface trunk
+
+
