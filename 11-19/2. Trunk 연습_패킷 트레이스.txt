@@ -1,0 +1,44 @@
+SW1
+!
+int ran f0/21 - f0/24
+sw tr en dot
+sw mo tr
+!
+int ran f0/19 - 20
+sh
+!
+---
+SW2
+!
+int ran f0/21 - f0/24
+sw tr en dot
+sw mo tr
+!
+int ran f0/19 - 20
+sh
+!
+---
+SW3
+!
+int ran f0/21 - f0/24
+sw tr en dot
+sw mo tr
+!
+int ran f0/19 - 20
+sh
+!
+---
+SW4
+!
+int ran f0/21 - f0/24
+sw tr en dot
+sw mo tr
+!
+int ran f0/19 - 20
+sh
+!
+===
+»Æ¿Œ
+!
+sh interface trunk
+!
