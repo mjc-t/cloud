@@ -1,0 +1,38 @@
+SW1
+!
+int ran f0/23 - 24
+sw mo tr
+!
+vlan 10
+vlan 20
+!
+int ran f0/1 - 2
+sw mo acc
+sw acc vl 10
+!
+int f0/3
+sw mo acc
+sw acc vl 20
+!
+---
+SW2
+!
+int ran f0/23 - 24
+sw mo tr
+!
+vlan 10
+vlan 20
+!
+int f0/1
+sw mo acc
+sw acc vl 10
+!
+int ran f0/2 - 3
+sw mo acc
+sw acc vl 20
+!
+===
+»Æ¿Œ
+!
+sh interface trunk
+sh vlan br
