@@ -1,0 +1,86 @@
+SW1
+!
+en
+conf t
+!
+int ran e2/2 - 3
+sw tr en dot
+sw mo tr
+!
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+!
+int ran e3/2 - 3
+sh
+!
+vtp mo trans
+!
+vlan 10,30,50
+!
+---
+SW2
+!
+int ran e2/2 - 3
+sw tr en dot
+sw mo tr
+!
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+!
+int ran e3/2 - 3
+sh
+!
+vtp mo trans
+!
+vlan 20,40
+!
+---
+SW3
+!
+int ran e2/2 - 3
+sw tr en dot
+sw mo tr
+!
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+!
+int ran e3/2 - 3
+sh
+!
+vtp mo ser
+vtp do cisco.com
+vtp pass cisco
+vtp ver 2
+!
+vlan 10,30,50
+!
+---
+SW4
+!
+int ran e2/2 - 3
+sw tr en dot
+sw mo tr
+!
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+!
+int ran e3/2 - 3
+sh
+!
+vtp mo ser
+vtp do cisco.com
+vtp pass cisco
+vtp ver 2
+!
+vlan 20,40
+!
+===
+»Æ¿Œ
+!
+sh vtp status
+sh vlan br
+sh interface trunk
