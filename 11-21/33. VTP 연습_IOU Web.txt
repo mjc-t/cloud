@@ -53,7 +53,7 @@ sw mo tr
 int ran e3/2 - 3
 sh
 !
-vtp mo ser
+vtp mo client
 vtp do cisco.com
 vtp pass cisco
 !
