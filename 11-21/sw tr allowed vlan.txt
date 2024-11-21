@@ -1,0 +1,23 @@
+IOU-Web 실습 II
+no vlan 10-100
+int ran e3/0 - 1
+sw tr all vl all
+
+SW1
+vlan 10-50,60
+
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+sw tr na vl 10
+
+SW2
+vlan 10-50,60
+int ran e3/0 - 1
+sw tr na vl 10
+
+SW1, 2
+int ran e3/0 - 1
+sw tr all vl 10-20,30
+sw tr all vl add 40
+sw tr all vl remove 30
