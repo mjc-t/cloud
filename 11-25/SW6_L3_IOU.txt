@@ -1,0 +1,283 @@
+SW1
+!
+en
+conf t
+!
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+!
+int ran e2/2 - 3
+sh
+!
+int ran e3/2 - 3
+sh
+!
+vtp mo tran
+!
+vlan 10,20,30,40,50,60,78,89,90
+!
+int e0/1
+sw mo acc
+sw acc vl 10
+!
+int e0/2
+sw mo acc
+sw acc vl 20
+!
+int e0/3
+sw mo acc
+sw acc vl 30
+!
+int lo0
+ip add 7.7.7.7 255.255.255.255
+!
+int vlan 10
+no sh
+ip add 1.1.10.7 255.255.255.0
+!
+int vlan 20
+no sh
+ip add 1.1.20.7 255.255.255.0
+!
+int vlan 30
+no sh
+ip add 1.1.30.7 255.255.255.0
+!
+int vlan 78
+no sh
+ip add 1.1.78.7 255.255.255.0
+!
+ip routing
+!
+router os 1
+router-id 7.7.7.7
+net 7.7.7.7 0.0.0.0 a 0
+net 1.1.10.7 0.0.0.0 a 0
+net 1.1.20.7 0.0.0.0 a 0
+net 1.1.30.7 0.0.0.0 a 0
+net 1.1.78.7 0.0.0.0 a 0
+!
+---
+SW2
+!
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+!
+int ran e2/2 - 3
+sw tr en dot
+sw mo tr
+!
+int ran e3/2 - 3
+sh
+!
+vtp mo trans
+!
+vlan 10,20,30,40,50,60,78,89,90
+!
+int e1/0
+sw mo acc
+sw acc vl 40
+!
+int e1/1
+sw mo acc
+sw acc vl 50
+!
+int e1/2
+sw mo acc
+sw acc vl 60
+!
+int lo0
+ip add 8.8.8.8 255.255.255.255
+!
+int vlan 78
+no sh
+ip add 1.1.78.8 255.255.255.0
+!
+int vlan 89
+no sh
+ip add 1.1.89.8 255.255.255.0
+!
+ip routing
+!
+router os 1
+router-id 8.8.8.8
+net 8.8.8.8 0.0.0.0 a 0
+net 1.1.78.8 0.0.0.0 a 0
+net 1.1.89.8 0.0.0.0 a 0
+!
+---
+SW3
+!
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+!
+int ran e2/2 - 3
+sw tr en dot
+sw mo tr
+!
+int ran e3/2 - 3
+sh
+!
+vtp mo trans
+!
+vlan 10,20,30,40,50,60,78,89,90
+!
+int lo0
+ip add 9.9.9.9 255.255.255.255
+!
+int vlan 89
+no sh
+ip add 1.1.89.9 255.255.255.0
+!
+int vlan 90
+no sh
+ip add 1.1.90.9 255.255.255.0
+!
+ip routing
+!
+router os 1
+router-id 9.9.9.9
+net 9.9.9.9 0.0.0.0 a 0
+net 1.1.89.9 0.0.0.0 a 0
+net 1.1.90.9 0.0.0.0 a 0
+!
+---
+SW4
+!
+int ran e2/2 - 3
+sh
+!
+int ran e3/0 - 1
+sw tr en dot
+sw mo tr
+!
+int ran e3/2 - 3
+sh
+!
+vtp mo trans
+!
+vlan 10,20,30,40,50,60,78,89,90
+!
+int lo0
+ip add 10.10.10.10 255.255.255.255
+!
+int vlan 90
+no sh
+ip add 1.1.90.10 255.255.255.0
+!
+int vlan 40
+no sh
+ip add 1.1.40.10 255.255.255.0
+!
+int vlan 50
+no sh
+ip add 1.1.50.10 255.255.255.0
+!
+int vlan 60
+no sh
+ip add 1.1.60.10 255.255.255.0
+!
+ip routing
+!
+router os 1
+router-id 10.10.10.10 
+net 10.10.10.10 0.0.0.0 a 0
+net 1.1.90.10 0.0.0.0 a 0
+net 1.1.40.10 0.0.0.0 a 0
+net 1.1.50.10 0.0.0.0 a 0
+net 1.1.60.10 0.0.0.0 a 0
+!
+---
+R1
+!
+int lo0
+ip add 1.1.1.1 255.255.255.255
+!
+int e0/0
+no sh
+ip add 1.1.10.1 255.255.255.0
+!
+router os 1
+router-id 1.1.1.1
+net 1.1.1.1 0.0.0.0 a 0
+net 1.1.10.1 0.0.0.0 a 0
+!
+---
+R2
+!
+int lo0
+ip add 2.2.2.2 255.255.255.255
+!
+int e0/0
+no sh
+ip add 1.1.20.2 255.255.255.0
+!
+router os 1
+router-id 2.2.2.2
+net 2.2.2.2 0.0.0.0 a 0
+net 1.1.20.2 0.0.0.0 a 0
+!
+---
+R3
+!
+int lo0
+ip add 3.3.3.3 255.255.255.255
+!
+int e0/0
+no sh
+ip add 1.1.30.3 255.255.255.0
+!
+router os 1
+router-id 3.3.3.3
+net 3.3.3.3 0.0.0.0 a 0
+net 1.1.30.3 0.0.0.0 a 0
+!
+---
+R4
+!
+int lo0
+ip add 4.4.4.4 255.255.255.0
+!
+int e0/1
+no sh
+ip add 1.1.40.4 255.255.255.0
+!
+router os 1
+router-id 4.4.4.4
+net 4.4.4.4 0.0.0.0 a 0
+net 1.1.40.4 0.0.0.0 a 0
+!
+---
+R5
+!
+int lo0
+ip add 5.5.5.5 255.255.255.255
+!
+int e0/1
+no sh
+ip add 1.1.50.5 255.255.255.0
+!
+router os 1
+router-id 5.5.5.5
+net 5.5.5.5 0.0.0.0 a 0
+net 1.1.50.5 0.0.0.0 a 0
+!
+---
+R6
+!
+int lo0
+ip add 6.6.6.6 255.255.255.255
+!
+int e0/1
+no sh
+ip add 1.1.60.6 255.255.255.0
+!
+router os 1
+router-id 6.6.6.6
+net 6.6.6.6 0.0.0.0 a 0
+net 1.1.60.6 0.0.0.0 a 0
+!
+
