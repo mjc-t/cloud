@@ -1,0 +1,84 @@
+int ran f0/1 - 10
+sw mo acc
+
+Static
+int f0/1
+sw port-security mac-add 0000.0000.1111
+sw port-security
+
+Port Sticky
+int f0/3
+sw port-security mac-add sticky
+sw port-security
+
+int f0/10
+sw port-security max 3
+sw port-security
+===
+FHRP=게이트웨이 이중화 프로토콜
+1. HSRP
+2. VRRP
+3. GLBP
+
+R2
+int f0/1
+standby 1 ip 1.1.100.10
+standby 1 pre
+standby 1 pri 105
+
+R3
+int f0/1
+st 1 ip 1.1.100.10
+st 1 pre
+확인
+sh standby br
+
+R2
+int f0/1
+standby 1 track f0/0 10
+int f0/0
+sh
+===
+MHSRP
+R2
+int f0/1
+st 2 ip 1.1.100.20
+st 2 pre
+
+R3
+int f0/1
+st 2 ip 1.1.100.20
+st 2 pre
+st 2 pri 105
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
