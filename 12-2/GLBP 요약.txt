@@ -1,0 +1,42 @@
+[GLBP]
+: 별도 설정없이 부하분산
+: Active/Standby
+: AVG/AVF
+
+int ...
+glbp # ip ...
+glbp # preempt
+glbp # priority 값
+
+glbp # loadbalancing {round-robin | host-dependent | weighted}
+glbp # weighting 값 lower 최저값 upper 최고값 
+glbp # weighting track 번호 decrement 뺄값
+glbp # timers ... ...
+glbp # authentication md5 key-string 암호
+
+
+[GLBP 예제]
+R2
+track 1 ip route 0.0.0.0/0 reachability
+
+int f0/1
+glbp 1 ip 1.1.100.10
+glbp 1 pre
+glbp 1 pri 110
+glbp 1 load-bal wei
+glbp 1 weighting 100 lower 90 upper 100
+glbp 1 wei track 1 decrement 20
+
+R3
+int f0/1
+glbp 1 ip 1.1.100.10
+glbp 1 pre
+glbp 1 load-bal wei
+glbp 1 weighting 100 lower 90 upper 100
+
+sh glbp brief: 그대로
+sh glbp: active 확인
+traceroute 7.7.7.7로 확인
+
+track은 priority가 아닌 weighting의 영향을 줌
+track decrement는 weighting 100에서 감점됨
