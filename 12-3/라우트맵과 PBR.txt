@@ -1,0 +1,70 @@
+라우팅 필터링
+1) Distribute List: 같은 프로토콜 사이에서의 필터링
+2) Route-Map: 다른 프로토콜 사이에서의 필터링
+                         , PBR(정책기반 라우팅)
+
+Route-Map 설정 순서
+route-map 이름 {permit | deny} #
+match 조건
+set      액션
+ 
+route-map TEST per 10
+match ip address 1
+set tag 10
+
+route-map 활용
+1단계: 대상
+access-list 1 per 6.6.6.0 0.0.0.255
+2단계: 정책
+route-map T1 per 10
+match ip address 1
+set tag 6
+3단계: 적용
+router ospf 1
+redi rip subnets route-map T1
+
+
+
+
+직접 연결된 인터페이스 재분배
+route-map L6 per 10
+match interface lo6
+
+router ospf 1
+redi connected route-map L6
+
+route-map 이용 필터링시
+: ACL는 Permit, Route-map는 Deny
+R1 Lo0는 거부, R2/R3는 허용
+router ospf 1
+redi rip subnets route-map TEST
+
+route-map TEST deny 10
+match ip address 1
+route-map TEST per 20
+
+access-list 1 per host 1.1.1.1
+
+PBR(Policy-based Routing)
+라우팅테이블보다 우선하여 관리자 의도대로 패킷을 보내려는 기술
+1단계 대상
+access-list # per 네트워크 와일드카드마스크
+2단계 정책
+route-map PBR permit 10
+match ip address # 
+set ip next-hop  건너편주소
+3단계 적용(들어오는 인터페이스)
+int ...
+ip policy route-map PBR
+
+확인명령어
+show route-map
+show ip policy
+traceroute ...
+debug ip policy
+
+주의할 점
+* PBR 적용 라우터 = debug ip policy 라우터
+* Next-Hop 주소
+* PBR 적용 인터페이스
+* Ping 출발지
