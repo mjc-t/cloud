@@ -33,3 +33,12 @@ ip add 1.1.20.10 255.255.255.0
 router os 1
 net 10.1.10.0 255.255.255.0 a 0
 net 1.1.20.0 255.255.255.0 a 0
+===
+추가
+class-map inspection_default
+match default-inspection-traffic
+
+policy-map global_policy
+class inspection_default
+
+service-policy global_policy global
