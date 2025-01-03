@@ -1,0 +1,124 @@
+- VirtualBox, Extensions 다운로드 설치
+- 우분투 24.04 다운로드
+- hub.docker.com 가입
+- 넷사랑: Xshell, XFTP 다운로드 설치
+
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl status ssh
+sudo systemctl start ssh
+sudo systemctl enable ssh
+sudo systemctl status ssh
+
+sudo apt update
+sudo apt install docker.io
+docker version
+
+
+Bare Metal
+
+도커 허브: 공식적으로 운영되는 도커 레지스트리(저장소)
+도커 레지스트리: 이미지 저장소
+
+도커 로그인
+docker login
+도커 컨테이너 생성 및 시작
+docker run -d --name 컨테이너명 -p 포트:포트 이미지명
+
+컨테이너 동작 확인
+docker ps
+컨테이너 스톱
+docker stop 컨테이너명
+컨테이너 확인
+docker ps -a
+컨테이너 삭제
+docker rm 컨테이너명
+=======
+도커 이미지 확인
+docker images
+도커 이미지 삭제
+docker rmi 이미지명
+
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+sudo service docker restart
+sudo reboot
+
+docker run -d --name nx1 -p 81:80 nginx
+docker run -d --name nx2 -p 82:80 nginx
+docker run -d --name nx3 -p 83:80 nginx
+
+docker run 이미지명
+
+docker container run 이미지명
+
+docker pull httpd
+docker run --name hd -p 8888:80 httpd
+docker run -d -p 8000:80 httpd
+
+docker rm 컨테이너명
+에러: 컨테이너가 스톱되지 않은 상황
+docker rm -f 컨테이너명
+<- Stop, rm 동시에 실행
+
+docker images = docker image ls
+
+docker run = (pull) + create + start
+
+-p 호스트포트:컨테이너포트 = -p 외부포트:내부포트
+
+docker run --name apa -d -p 8080:80 httpd
+
+docker run -d -p 80:8080 --name tc tomcat
+docker run -d -p 88:80 --name hd httpd
+
+여러 컨테이너 및 이미지 스톱, 삭제할 때
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
+docker rmi $(docker images -q)
+
+docker rm -f = docker stop + rm
+
+docker run -d -p 80:80 --name nx nginx:1.14
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
