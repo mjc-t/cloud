@@ -102,7 +102,7 @@ mariadb
    DB 사용자 이름	MYSQL_USER=reduser
    DB 패스워드	MYSQL_PASSWORD=redpass
 3) RedMine
-docker run -d -p 8888:3000 --name red --net=rednet \
+docker run -dit -p 8888:3000 --name red --net=rednet \
 -e REDMINE_DB_MYSQL=ms \
 -e REDMINE_DB_DATABASE=reddb \
 -e REDMINE_DB_USERNAME=reduser \
