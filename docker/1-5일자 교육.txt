@@ -84,7 +84,35 @@ WordPress + MySQL
    -e WORDPRESS_DB_USER=wpuser \
    -e WORDPRESS_DB_PASSWORD=wppass wordpress
 
+[2개 컨테이너 연동-2]
+레드마인 & MariaDB 연동
 
+1) 네트워크 생성
+   docker network create rednet
+2) MariaDB
+docker run -d --name=ms --net=rednet \
+-e MYSQL_ROOT_PASSWORD=rootpass \
+-e MYSQL_DATABASE=reddb \
+-e MYSQL_USER=reduser \
+-e MYSQL_PASSWORD=redpass \
+mariadb
+
+   루트패스워드	MYSQL_ROOT_PASSWORD=rootpass
+   데이터베이스이름 	MYSQL_DATABASE=reddb
+   DB 사용자 이름	MYSQL_USER=reduser
+   DB 패스워드	MYSQL_PASSWORD=redpass
+3) RedMine
+docker run -d -p 8888:3000 --name red --net=rednet \
+-e REDMINE_DB_MYSQL=ms \
+-e REDMINE_DB_DATABASE=reddb \
+-e REDMINE_DB_USERNAME=reduser \
+-e REDMINE_DB_PASSWORD=redpass \
+redmine
+
+   DB 컨테이너이름	REDMINE_DB_MYSQL=ms
+   데이터베이스이름 	REDMINE_DB_DATABASE=reddb
+   DB 사용자 이름	REDMINE_DB_USERNAME=reduser
+   DB 패스워드	REDMINE_DB_PASSWORD=redpass
 
 
 
