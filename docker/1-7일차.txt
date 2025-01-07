@@ -1,0 +1,106 @@
+[환경변수 사용: -e]
+docker run -d -e MYSQL_ROOT_PASSWORD=rootpass --name ms mysql
+docker run -d -e MARIADB_ROOT_PASSWORD=rootpass --name md mariadb
+
+docker exec -it md /bin/bash
+$ mariadb -u root -p
+
+환경변수를 사용해서 데이터 전달(-e 키=값): nginx
+docker run -d --name nx -e env_name=mjc nginx
+docker exec -it nx bash
+printenv(환경변수 출력)
+printenv env_name
+= echo $env_name
+
+[레이어]
+pull: 이미지를 쪼개서 다운로드
+이미 존재하는 레이어가 있다면 새로 다운로드 받을 필요가 없다
+docker inspect 이미지이름
+docker info
+	도커의 루트 디렉터리: /var/lib/docker
+		- containers, image, overlay2
+	레이어의 실질적 저장위치: overlay2
+
+[컨테이너 로그 확인]: docker logs
+docker logs 컨테이너이름
+
+docker search jenkins
+docker pull jenkins/jenkins
+docker inspect jenkins/jenkins | more
+docker run -d -p 8080:8080 --name jk jenkins/jenkins
+
+초기 패스워드 찾는 법
+1. 로그 확인
+   docker logs jk
+2. 내부 쉘에서 확인
+   docker exec -it jk cat /var/jenkins_home/secrets/initialAdminPassword
+
+[파일 복사] - 컨테이너와 호스트 사이
+도커 복사: docker cp 원본경로 복사본경로
+	컨테이너 경로 지정 - 컨테이너이름:경로
+
+톰캣으로 루트 디렉터리 복사
+docker run -d -p 8080:8080 --name tc tomcat
+echo KoreaFighting > kr.txt
+docker cp kr.txt tc:/
+docker exec -it tc cat /kr.txt
+docker cp tc:/kr.txt ./kr2.txt
+
+아파치 홈페이지 복사
+/usr/local/apache2/htdocs
+
+docker run -d -p 80:80 --name apa httpd
+
+nano index.html
+<html><body>
+<h1>취업률 100% 성공 달성</h1>
+</body></html>
+
+docker cp index.html apa:/usr/local/apache2/htdocs
+
+nginx 홈페이지 복사
+/usr/share/nginx/html
+docker run -d -p 88:80 --name nx nginx
+
+docker cp index.html nx:/usr/share/nginx/html
+
+[볼륨 마운트]
+docker run -v 호스트경로:컨테이너경로:권한
+
+권한의 종류
+ ro: 읽기 전용
+ rw: 읽기 및 쓰기
+
+nginx 볼륨 마운트
+docker run -d -p 80:80 --name nx -v /home/ubuntu/test:/usr/share/nginx/html:ro nginx 
+
+apache 볼륨 마운트
+docker run -d -p 80:80 --name apa -v /home/ubuntu/test:/usr/local/apache2/htdocs httpd
+
+텍스트 브라우저: lynx, elinks, curl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
