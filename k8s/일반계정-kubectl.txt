@@ -1,0 +1,8 @@
+[일반 계정으로 kubectl 사용하려면]
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown ubuntu:ubuntu $HOME/.kube/config
+
+[kubectl 알리아스 설정]
+alias k=kubectl >> .bashrc
