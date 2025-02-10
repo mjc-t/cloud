@@ -2,3 +2,15 @@ aws cli 경로
 https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/getting-started-install.html
 kubectl 설치 경로
 https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/install-kubectl.html
+
+[클러스터 생성]
+eksctl create cluster \
+    --name k8s-demo \
+    --region ap-northeast-2 \
+    --with-oidc \
+    --nodegroup-name k8s-ng \
+    --zones ap-northeast-2a,ap-northeast-2c \
+    --nodes 2
+    --node-type t3.medium \
+    --node-volume-size=20 \
+    --managed
