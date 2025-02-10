@@ -37,5 +37,7 @@ eksctl create iamserviceaccount \
   --namespace=kube-system \
   --name=aws-load-balancer-controller \
   --role-name AmazonEKSLoadBalancerControllerRole \
-  --attach-policy-arn=arn:aws:iam::897722673399:policy/AWSLoadBalancerControllerIAMPolicy \
+  --attach-policy-arn=arn:aws:iam::688567285575:policy/AWSLoadBalancerControllerIAMPolicy \
   --approve
+
+https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/network-load-balancing.html
