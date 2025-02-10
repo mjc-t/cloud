@@ -14,3 +14,6 @@ eksctl create cluster \
     --node-type t3.medium \
     --node-volume-size=20 \
     --managed
+
+[Helm을 활용하여 Load Balancer Controller 생성]
+https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/lbc-helm.html
