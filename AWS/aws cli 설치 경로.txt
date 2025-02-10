@@ -17,3 +17,25 @@ eksctl create cluster \
 
 [Helm을 활용하여 Load Balancer Controller 생성]
 https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/lbc-helm.html
+
+[AWS EKS 클러스터 정보 수집 후 변수에 저장]
+    - cluster_name: k8s-demo
+    - oidc_id: OIDC 자격증명 ID
+===
+export cluster_name=k8s-demo
+oidc_id=$(aws eks describe-cluster --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
+echo $oidc_id
+# 만약 출력되지 않는다면
+eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+===
+my-cluster를 사용자 클러스터 이름으로 바꾸고 111122223333을 계정 ID로
+ 바꾼 다음 명령을 실행. 클러스터가 AWS GovCloud(미국 동부) 또는 AWS 
+GovCloud(미국 서부) AWS 리전에 있는 경우, arn:aws: 를 arn:aws-us-gov:로 대체
+===
+eksctl create iamserviceaccount \
+  --cluster=k8s-demo \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --role-name AmazonEKSLoadBalancerControllerRole \
+  --attach-policy-arn=arn:aws:iam::897722673399:policy/AWSLoadBalancerControllerIAMPolicy \
+  --approve
